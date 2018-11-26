@@ -1,6 +1,6 @@
 [submodule "apib2wwrapperphp"]
-	path = apib2wwrapperphp
-	url = ../include/apib2wwrapperphp
+	path = /include/apib2wwrapperphp
+	url = ../apib2wwrapperphp
 [submodule "apimagentophp"]
-	path = apimagentophp
-	url = ../include/apimagentophp
+	path = /include/apimagentophp
+	url = ../apimagentophp
