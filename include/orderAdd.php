@@ -16,20 +16,17 @@ class Magento_order{
 
     $this->data = new stdClass();
     $this->data->id_order = $dadosVenda->id_order;
-    // $this->data->mlb_produto = $dadosVenda->mlb_produto;
     $this->data->sku_produto = $dadosVenda->sku_produto;
     $this->data->nome_produto = $dadosVenda->nome_produto;
     $this->data->qtd_produto = $dadosVenda->qtd_produto;
-    // $this->data->preco_unidade_produto =$dadosVenda->preco_unidade_produto;
-    // $this->data->preco_total_produto = $dadosVenda->preco_total_produto;
-
+    $this->data->preco_especial_produto = $dadosVenda->preco_especial_produto;
+    $this->data->preco_original_produto = $dadosVenda->preco_original_produto;
     //--------------PAGAMENTO---------
-    // $this->data->id_meio_pagamento = $dadosVenda->id_meio_pagamento;
     $this->data->tipo_pagamento = $dadosVenda->tipo_pagamento;
-    // $this->data->custo_envio = $dadosVenda->custo_envio;
-    // $this->data->total_pagar = $dadosVenda->total_pagar;
-    // $this->data->status_pagamento = $dadosVenda->status_pagamento;
-
+    $this->data->custo_envio = $dadosVenda->custo_envio;
+    $this->data->total_pagar = $dadosVenda->total_pagar;
+    $this->data->desconto = $dadosVenda->desconto;
+    $this->data->parcels = $dadosVenda->parcels;
     //-----------ENDEREÇO ENTREGA---------
     $this->data->shipping_receptor = $dadosVenda->shipping_receptor;
     $this->data->shipping_rua = $dadosVenda->shipping_rua;
@@ -40,6 +37,7 @@ class Magento_order{
     $this->data->shipping_estado = $dadosVenda->shipping_estado;
     $this->data->shipping_pais = $dadosVenda->shipping_pais;
     $this->data->shipping_phone = $dadosVenda->shipping_phone;
+    $this->data->shipping_referencia = $dadosVenda->shipping_referencia;
 
     //-----------ENDEREÇO COBRANÇA---------
     $this->data->billing_receptor = $dadosVenda->billing_receptor;
@@ -51,17 +49,14 @@ class Magento_order{
     $this->data->billing_estado = $dadosVenda->billing_estado;
     $this->data->billing_pais = $dadosVenda->billing_pais;
     $this->data->billing_phone = $dadosVenda->billing_phone;
-
+    $this->data->billing_referencia = $dadosVenda->billing_referencia;
     // ---------USUARIO---------
-    // $this->data->id_comprador = $dadosVenda->id_comprador;
-    // $this->data->apelido_comprador = $dadosVenda->apelido_comprador;
     $this->data->email_comprador = $dadosVenda->email_comprador;
-    // $this->data->cod_area_comprador = $dadosVenda->cod_area_comprador;
     $this->data->telefone_comprador = $dadosVenda->telefone_comprador;
     $this->data->nome_comprador = $dadosVenda->nome_comprador;
     $this->data->sobrenome_comprador = $dadosVenda->sobrenome_comprador;
-    // $this->data->tipo_documento_comprador = $dadosVenda->tipo_documento_comprador;
     $this->data->numero_documento_comprador = $dadosVenda->numero_documento_comprador;
+    $this->data->nascimento = $dadosVenda->nascimento;
   }
 
   public function magento1_customerCustomerCreate(){
@@ -346,7 +341,7 @@ class Magento_order{
               'mode' => 'shipping',
               'firstname' => $nome_shipping ,
               'lastname' => $sobrenome_shipping,
-              'street' => $this->data->shipping_rua.", ".$this->data->shipping_numero."-".$this->data->shipping_bairro,
+              'street' => $this->data->shipping_rua.", ".$this->data->shipping_numero." - ".$this->data->shipping_bairro,
               'city' => $this->data->shipping_cidade,
               'region' => $this->data->shipping_estado,
               'postcode' => $this->data->shipping_cep,
@@ -452,7 +447,19 @@ class Magento_order{
             if($DEBUG == TRUE) {echo "<h1>shoppingCartOrder</h1>";var_dump($order_id);}
 
             //function magento_salesOrderAddComment($order_id, $status, $comment)
-            $comment = "Id do Pedido B2W: ".$this->data->id_order;
+            $comment = "Id do Pedido B2W:".$this->data->id_order.
+            "->Referencia do local de entrega:".$this->data->shipping_referencia.
+            "->Referencia do local de entrega do pagamento:".$this->data->billing_referencia.
+            "->Tipo de pagamento:".$this->data->tipo_pagamento.
+            "->Preço original do produto:".$this->data->preco_original_produto.
+            "->Preço promocional do produto:".$this->data->preco_especial_produto.
+            "->Subtotal:".(float)$this->data->preco_especial_produto*(float)$this->data->qtd_produto.
+            "->Desconto:".$this->data->desconto.
+            "->Custo Frete:".$this->data->custo_envio.
+            "->Valor Total:".$this->data->total_pagar.
+            "->Data de nascimento:".$this->data->nascimento.
+            "->Parcelas:".$this->data->parcels;
+
             // foreach ($this->data->id_order as $key =>$value)
             // {
             //   $comment .= "Id do Pedido MLB: ".$this->data->id_order[$key]."\t";
