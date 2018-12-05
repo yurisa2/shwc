@@ -4,9 +4,6 @@
 [submodule "apimagentophp"]
 	path = /include/apimagentophp
 	url = ../apimagentophp
-[submodule "include/APIb2wwrapperphp"]
-	path = include/APIb2wwrapperphp
-	url = ../apib2wwrapperphp
-[submodule "include/APImagentophp"]
-	path = include/APImagentophp
-	url = ../apimagentophp
+[submodule "include/apiwoocommercephp"]
+	path = include/apiwoocommercephp
+	url = ../apiwoocommercephp
