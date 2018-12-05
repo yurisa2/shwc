@@ -3,27 +3,15 @@ ini_set("error_reporting",E_ALL);
 ini_set('display_errors', 1);
 
 require_once 'include/all_include.php';
+
 echo "<pre>";
 
-// PRODUCTS
-$obj = new b2w_product;
-$obj = $obj->updateproduct();
-if(!$obj) echo "Erro ao atualizar produtos";
+$pdor = new ShPDO;
 
-var_dump($obj);
+var_dump($pdor->get_prod_qty("5392"));
 
-// ORDERS
-$obj = new b2w_order;
-$obj = $obj->createorder();
-if(!$obj) echo "Erro ao cadastrar o pedido no magento";
+var_dump($pdor->get_prod_price("5392"));
 
-var_dump($obj);
 
-// IBVOICES
-$obj = new b2w_invoice;
-$obj = $obj->verify_envoice();
-if(!$obj) echo "Não há pedidos se a chave da nota fiscal";
-
-var_dump($obj);
 
 ?>
