@@ -1,9 +1,3 @@
-[submodule "apib2wwrapperphp"]
-	path = /include/apib2wwrapperphp
-	url = ../apib2wwrapperphp
-[submodule "apimagentophp"]
-	path = /include/apimagentophp
-	url = ../apimagentophp
 [submodule "include/apiwoocommercephp"]
 	path = include/apiwoocommercephp
 	url = ../apiwoocommercephp
