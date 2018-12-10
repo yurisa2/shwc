@@ -1,3 +1,6 @@
 [submodule "include/apiwoocommercephp"]
 	path = include/apiwoocommercephp
 	url = ../apiwoocommercephp
+[submodule "include/PHPMailer"]
+	path = include/PHPMailer
+	url = https://github.com/PHPMailer/PHPMailer
