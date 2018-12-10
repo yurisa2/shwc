@@ -46,6 +46,33 @@ foreach ($return->update as $key => $value) {
 }
 echo "Produtos Atualizados: $updated_products";
 } catch (Exception $e) {
+  $error_handling = new error_handling('Erro ao atualizar os produtos', "Erro ao atualizar os produtos: $updated_products", $e->getMessage(), 'erro');
+  //lê o json que contem o time() do ultimo email enviado
+if(!file_exists("include/files/last_emailsend.json")) file_put_contents("include/files/last_emailsend.json",json_encode(0));
+
+$time_emailsend = json_decode(file_get_contents("include/files/last_emailsend.json"));
+  //Se o horario do json + 1 hora (3600 s) for menor ou igual ao horario
+  //atual significa que ja passou uma hora e pode mandar novamente email
+  if ($time_emailsend + 3600 <= time())
+  {
+    //estancia a função para criar a mensagem de corpo
+    $error_handling->send_error_email();
+    //estancia a função para executar as funções email()-db()-files() previamente
+    //por padrão, as propriedades error_db e error_files estão true
+    $error_handling->execute();
+    //atualiza o json para a hora em que é mandado o email
+    file_put_contents("include/files/last_emailsend.json", json_encode(time()));
+    return "0";
+  }
+  else
+  {
+    //Caso não tenha dado uma hora do ultimo email enviado, é gravado
+    //o erro no json de log  error_files/error_log.json
+    //executa a função para criar a mensagem de erro
+    $error_handling->send_errorlog_email();
+    //executa a função para atualizar o json com o novo erro
+    $error_handling->files();
+  }
   echo 'Problema ao Atualizar: ',  $e->getMessage(), "\n";
 }
 $page = $page+1;
