@@ -142,12 +142,11 @@ class event_base
 
     $e_mail = $email_destinatario[1];
     $from_mail = 'mercomagento@sa2.com.br';
-    $from_name = 'BOT - Integração Skyhub B2w Magento Sa2 - BOT';
+    $from_name = 'SA2 - Integração Sharman Woocommerce';
     $titulo = $this->titulo;
     $mensagem = $this->mensagemHTML;
     $mail = new PHPMailer;
     $mail->IsHTML(true);
-    var_dump($SMTP);
     if($SMTP == true)
     {
       $mail->isSMTP();                             // Set mailer to use SMTP
@@ -161,7 +160,7 @@ class event_base
     }
     else
     {
-      $from_name = 'BOT - Integração Skyhub B2w Magento - SendMail';
+      $from_name = 'SA2 - Integração Sharman Woocommerce - SendMail';
       $mail->isSendmail();
       $mail->SMTPAuth = true;
       $mail->msgHTML($this->mensagemHTML);
@@ -249,6 +248,7 @@ class event_base
   */
   public function files()
   {
+    if(!file_exists($this->dir_file)) file_put_contents($this->dir_file,json_encode(""));
     $mensagem = json_decode(file_get_contents($this->dir_file));
     $mensagem[] = $this->mensagem;
     $resultado = file_put_contents($this->dir_file, json_encode($mensagem, JSON_UNESCAPED_UNICODE));
@@ -256,7 +256,7 @@ class event_base
     //OBS: Pode até mandar o arquivo em anexo;
     if (count($mensagem) > 100)
     {
-      $this->titulo = "100 Erros MGB2W";
+      $this->titulo = "100 Erros SHWC";
       foreach ($mensagem as $key => $value)
       {
         foreach ($mensagem[$key] as $i => $values) {
