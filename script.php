@@ -37,11 +37,19 @@ foreach ($product_list as $key => $value) {
  }
   $product_data = $update_batch;
 
+try {
 $return = $woocommerce_product->productbatch($product_data);
-var_dump($return);
 
+$updated_products='';
+foreach ($return->update as $key => $value) {
+  $updated_products .= $value->id.", ";
+}
+echo "Produtos Atualizados: $updated_products";
+} catch (Exception $e) {
+  echo 'Problema ao Atualizar: ',  $e->getMessage(), "\n";
+}
 $page = $page+1;
-var_dump(file_put_contents("include/files/product_page.json",$page));
+file_put_contents("include/files/product_page.json",$page);
 
 // $product_index = array_search($next_product,$productId_list)+1;
 
