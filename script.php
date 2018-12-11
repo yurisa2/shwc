@@ -6,7 +6,7 @@ require_once 'include/all_include.php';
 
 echo "<pre>";
 
-$pdor = new ShPDO;
+$pdor = new sharmaq;
 $woocommerce_product = new products;
  if(!file_exists("include/files/product_page.json")) file_put_contents("include/files/product_page.json",1);
  $page = (int)file_get_contents("include/files/product_page.json");
